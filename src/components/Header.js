@@ -1,5 +1,6 @@
 import { useState } from 'react';
-import { Flex, Box, Text, Link } from '@chakra-ui/react';
+import { Flex, Box, Text, Link, Image } from '@chakra-ui/react';
+import logo from '../assets/logo.png'
 
 const MenuItem = ({ children, isLast, to = '/' }) => {
   return (
@@ -26,10 +27,8 @@ const Header = (props) => {
       wrap="wrap"
       w="100%"
     >
-      <Box w="200px">
-        <Text fontSize="lg" fontWeight="bold">
-          GRANDcast.FM
-        </Text>
+      <Box>
+        <Image src={logo} boxSize="96px" alt="Logo" />
       </Box>
 
       <Box display={{ base: 'block', md: 'none' }} onClick={toggleMenu}>
@@ -46,11 +45,14 @@ const Header = (props) => {
           direction={['column', 'row', 'row', 'row']}
           pt={[4, 4, 0, 0]}
         >
-          <MenuItem to="/">Home</MenuItem>
-          <MenuItem to="/podcasts">Podcasts</MenuItem>
-          <MenuItem to="/playlists">Playlists</MenuItem>
+          <MenuItem to="/">Open Mic List</MenuItem>
+          <MenuItem to="/podcasts">Comedy Shows</MenuItem>
+          <MenuItem to="/playlists">Book a Tour</MenuItem>
+          <MenuItem to="/playlists">Venues</MenuItem>
+          <MenuItem to="/playlists">News</MenuItem>
+          <MenuItem to="/playlists">Podcast</MenuItem>
           <MenuItem to="/search" isLast>
-            Search
+            About
           </MenuItem>
         </Flex>
       </Box>

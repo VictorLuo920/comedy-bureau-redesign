@@ -10,7 +10,7 @@ base('TCB_mics_calendar').select({
     // This function (`page`) will get called for each page of records.
 
     records.forEach(function(record) {
-        console.log('Retrieved', record);
+        console.log('Retrieved', record._rawJson);
     });
 
     // To fetch the next page of records, call `fetchNextPage`.
