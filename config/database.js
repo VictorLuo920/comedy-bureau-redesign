@@ -1,23 +1,19 @@
-require('dotenv').config()
-var Airtable = require('airtable');
-var base = new Airtable({apiKey: process.env.AIRTABLE_API_KEY}).base('appuT5XmWM7rJZWgP');
+require("dotenv").config();
+const { createClient } = require("@supabase/supabase-js");
 
-base('TCB_mics_calendar').select({
-    // Selecting the first 3 records in Grid view:
-    maxRecords: 3,
-    view: "Grid view"
-}).eachPage(function page(records, fetchNextPage) {
-    // This function (`page`) will get called for each page of records.
+const SUPABASE_URL = "https://wdjhufbambbhxllreyor.supabase.co";
 
-    records.forEach(function(record) {
-        console.log('Retrieved', record._rawJson);
-    });
+const supabase = createClient(SUPABASE_URL, process.env.SUPABASE_KEY);
 
-    // To fetch the next page of records, call `fetchNextPage`.
-    // If there are more records, `page` will get called again.
-    // If there are no more records, `done` will get called.
-    fetchNextPage();
+const query = async () => {
+  let { data, error } = await supabase.from("Open_Mics").select("EVENT_NAME");
 
-}, function done(err) {
-    if (err) { console.error(err); return; }
-});
+  if (error) {
+    console.log(error);
+    return;
+  }
+
+  console.log(data);
+};
+
+query();

@@ -1,9 +1,7 @@
 import { Box, Text, Badge } from "@chakra-ui/react";
 
-const Card = ({ event }) => {
-  const { fields } = event;
-  console.log(fields);
-
+const Card = ({event}) => {
+    console.log(event)
   return (
     <Box m={2} borderWidth="1px" w="100%">
       <Text
@@ -12,10 +10,10 @@ const Card = ({ event }) => {
         fontWeight="bold"
         color="red"
       >
-        {fields['EVENT NAME']}
+        {event["EVENT_NAME"]}
       </Text>
       <Text textTransform="uppercase" fontSize="sm" fontWeight="bold">
-        {fields['START TIME']}
+        {event["START_TIME"]}
       </Text>
       <Text
         textTransform="uppercase"
@@ -23,10 +21,12 @@ const Card = ({ event }) => {
         fontWeight="bold"
         color="red"
       >
-        {fields['VENUE']}
+        {event["VENUE"]}
       </Text>
-      <Badge colorScheme="red">{fields['EVENT COST MICS'] !== '$0' ? fields['EVENT COST MICS'] : 'Free'}</Badge>
-      <Text>{fields['EVENT DESCRIPTION']}</Text>
+      <Badge colorScheme="red">
+        {event["EVENT_COST_MICS"] !== "$0" ? event["EVENT_COST_MICS"] : "Free"}
+      </Badge>
+      <Text>{event["EVENT_DESCRIPTION"]}</Text>
     </Box>
   );
 };

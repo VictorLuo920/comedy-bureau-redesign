@@ -3,43 +3,29 @@ import Header from "./components/Header";
 import Card from "./components/Card";
 import { ChakraProvider, VStack } from "@chakra-ui/react";
 import { useState, useEffect } from "react";
+require('dotenv').config()
+const { createClient } = require('@supabase/supabase-js')
 
-var Airtable = require("airtable");
-var base = new Airtable({ apiKey: "keyrTjaaPo8M0knDd" }).base(
-  "appuT5XmWM7rJZWgP"
-);
+const SUPABASE_URL = "https://wdjhufbambbhxllreyor.supabase.co"
+const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJyb2xlIjoiYW5vbiIsImlhdCI6MTYxNjYwMjU2MCwiZXhwIjoxOTMyMTc4NTYwfQ.yHFJg6Q_bt0fA5XaPCnlDHB0A3t7om4gmxBu_NN2AkI'
 
-const data = [1, 2, 3, 4, 5, 6, 7, 8];
+const supabase = createClient(SUPABASE_URL, SUPABASE_KEY);
 
 function App() {
   const [eventData, setEventData] = useState([]);
   useEffect(() => {
-    base("TCB_mics_calendar")
-      .select({
-        // Selecting the first 3 records in Grid view:
-        maxRecords: 50,
-        view: "Grid view",
-      })
-      .eachPage(
-        function page(records, fetchNextPage) {
-          // This function (`page`) will get called for each page of records.
-          setEventData(records);
-          records.forEach(function (record) {
-            console.log("Retrieved", record);
-          });
+    async function query() {
+      let { data, error } = await supabase.from("Open_Mics").select("*");
 
-          // To fetch the next page of records, call `fetchNextPage`.
-          // If there are more records, `page` will get called again.
-          // If there are no more records, `done` will get called.
-          fetchNextPage();
-        },
-        function done(err) {
-          if (err) {
-            console.error(err);
-            return;
-          }
-        }
-      );
+      if (error) {
+        console.log(error);
+        return;
+      }
+      setEventData(data)
+      console.log(data)
+    }
+
+    query()
   }, []);
 
   return (
