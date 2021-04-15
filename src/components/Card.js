@@ -1,7 +1,6 @@
 import { Box, Text, Badge } from "@chakra-ui/react";
 
 const Card = ({event}) => {
-    console.log(event)
   return (
     <Box m={2} borderWidth="1px" w="100%">
       <Text
